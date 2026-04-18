@@ -1,0 +1,488 @@
+>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONESTEP FILM PRODUCTION</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brandRed: '#e50914',
+                        darkBg: '#0f0f0f',
+                        darkCard: '#1a1a1a',
+                        lightBg: '#ffffff',
+                        lightCard: '#f8f9fa',
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Custom Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Animation delays */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Hero Background */
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Mouse Scroll Animation */
+        .mouse {
+            width: 30px;
+            height: 50px;
+            border: 2px solid white;
+            border-radius: 20px;
+            position: relative;
+        }
+        .mouse::before {
+            content: '';
+            width: 4px;
+            height: 8px;
+            background: white;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 4px;
+            animation: scroll 1.5s infinite;
+        }
+        @keyframes scroll {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(15px); }
+        }
+    </style>
+</head>
+<body class="bg-lightBg text-gray-900 dark:bg-darkBg dark:text-gray-100 transition-colors duration-300">
+
+    <!-- Header -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 dark:bg-darkBg/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-black tracking-tighter">ONESTEP<span class="text-brandRed">FILM</span></a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-sm font-medium hover:text-brandRed transition-colors">About</a>
+                    <a href="#members" class="text-sm font-medium hover:text-brandRed transition-colors">Members</a>
+                    <a href="#contact" class="text-sm font-medium hover:text-brandRed transition-colors">Contact</a>
+                    <button class="theme-toggle-btn p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i data-lucide="moon" class="theme-icon w-5 h-5"></i>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button class="theme-toggle-btn p-2 mr-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i data-lucide="moon" class="theme-icon w-5 h-5"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 text-gray-900 dark:text-white">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-darkBg border-b border-gray-100 dark:border-gray-800 shadow-xl absolute w-full">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#about" class="mobile-link block px-3 py-3 text-base font-medium hover:text-brandRed hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md">About</a>
+                <a href="#members" class="mobile-link block px-3 py-3 text-base font-medium hover:text-brandRed hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md">Members</a>
+                <a href="#contact" class="mobile-link block px-3 py-3 text-base font-medium hover:text-brandRed hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center hero-bg text-white">
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto w-full fade-in-up">
+            <h1 class="text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter mb-6 uppercase">
+                Onestep<br>
+                <span class="text-brandRed">film</span> production
+            </h1>
+            <p class="text-lg md:text-2xl font-light tracking-widest text-gray-200">
+                若者の視点で、<br class="md:hidden">今しかできない映像/写真を。
+            </p>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-80">
+            <span class="text-xs uppercase tracking-widest mb-2 font-medium">Scroll</span>
+            <div class="mouse"></div>
+        </div>
+    </section>
+
+    <!-- 2. About Section -->
+    <section id="about" class="py-24 md:py-32 bg-lightBg dark:bg-darkBg relative overflow-hidden">
+        <!-- Decorative element -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brandRed opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-sm font-bold tracking-widest text-brandRed uppercase mb-2">About Us</h2>
+                <h3 class="text-3xl md:text-4xl font-bold">私たちについて</h3>
+                <div class="w-12 h-1 bg-brandRed mx-auto mt-6"></div>
+            </div>
+
+            <div class="space-y-16">
+                <!-- About Block 1 -->
+                <div class="fade-in-up bg-lightCard dark:bg-darkCard p-8 md:p-10 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                    <h4 class="text-xl md:text-2xl font-bold mb-6 flex items-center border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <span class="text-brandRed mr-3">■</span> ONESTEPFILMについて（企業向け）
+                    </h4>
+                    <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+                        <p>ONESTEPFILMは、クリエイターおよび映像制作を志す若者によって構成された映像メディアチームです。</p>
+                        <p>映画制作やPR動画制作を中心に、企画立案から撮影・編集まで一貫して行い、クライアントの想いやブランドの価値を映像として表現しています。</p>
+                        <p>また、自主制作においても、「今、伝えたい」「今、撮りたい」という視点を大切にし、柔軟な発想と行動力を活かした作品づくりに取り組んでいます。</p>
+                        <p>個人では実現が難しいプロジェクトにも、チームとして取り組むことで新たな価値を創出し、映像を通じた可能性を広げていきます。</p>
+                        <p class="font-medium mt-6 p-4 bg-white dark:bg-black rounded-lg border-l-4 border-brandRed">
+                            私たちは、《昨日の自分より、一歩前へ》をテーマに、常に成長と挑戦を続けながら、社会やクライアントに貢献できる映像制作を目指しています。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- About Block 2 -->
+                <div class="fade-in-up bg-lightCard dark:bg-darkCard p-8 md:p-10 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                    <h4 class="text-xl md:text-2xl font-bold mb-6 flex items-center border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <span class="text-brandRed mr-3">■</span> ONESTEPとは
+                    </h4>
+                    <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+                        <p>ONESTEPは、挑戦する学生が集うコミュニティです。</p>
+                        <p>メンバー一人ひとりが「やってみたい」という想いを持ち、その一歩を実際の行動へとつなげ、成長していくことを目的としています。</p>
+                        <p>分野や経験にとらわれず、それぞれの挑戦を尊重し合いながら、新たな価値や機会を生み出す環境づくりに取り組んでいます。</p>
+                    </div>
+                </div>
+
+                <!-- About Block 3 -->
+                <div class="fade-in-up bg-lightCard dark:bg-darkCard p-8 md:p-10 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 border-t-4 border-t-brandRed">
+                    <h4 class="text-xl md:text-2xl font-bold mb-6 flex items-center border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <span class="text-brandRed mr-3">■</span> ONESTEP FILM PRODUCTIONについて
+                    </h4>
+                    <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+                        <p>ONESTEP FILM PRODUCTIONは、ONESTEPから生まれた映像制作プロジェクトです。</p>
+                        <p>映画制作やPR動画制作を中心に、企画立案から撮影・編集までを一貫して行い、より本格的な作品づくりに取り組んでいます。</p>
+                        <p>若い感性と柔軟な発想を強みに、クライアントの想いやコンセプトを丁寧に汲み取り、映像として高いクオリティで表現することを目指しています。</p>
+                        <p>また、自主制作にも積極的に取り組み、クリエイティブの幅を広げながら、映像を通じた価値提供と表現の可能性を追求しています。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Members Section -->
+    <section id="members" class="py-24 md:py-32 bg-gray-50 dark:bg-black relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-sm font-bold tracking-widest text-brandRed uppercase mb-2">Members</h2>
+                <h3 class="text-3xl md:text-4xl font-bold">メンバー紹介</h3>
+                <div class="w-12 h-1 bg-brandRed mx-auto mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Member 1 -->
+                <div class="bg-white dark:bg-darkCard rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group fade-in-up border border-gray-100 dark:border-gray-800">
+                    <div class="h-2 w-full bg-brandRed"></div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-2xl font-bold">城野 汀</h4>
+                            <i data-lucide="video" class="text-gray-300 dark:text-gray-600 w-8 h-8 group-hover:text-brandRed transition-colors"></i>
+                        </div>
+                        <p class="text-sm font-bold text-brandRed bg-red-50 dark:bg-red-900/20 inline-block px-3 py-1 rounded-full mb-6">ONESTEP高校生代表</p>
+                        <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>「映画波の先へ」撮影協力</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>かわねきりんの会イベント映像制作</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="bg-white dark:bg-darkCard rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group fade-in-up delay-100 border border-gray-100 dark:border-gray-800">
+                    <div class="h-2 w-full bg-brandRed"></div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-2xl font-bold">若田 優樹</h4>
+                            <i data-lucide="instagram" class="text-gray-300 dark:text-gray-600 w-8 h-8 group-hover:text-brandRed transition-colors"></i>
+                        </div>
+                        <p class="text-sm font-bold text-gray-500 dark:text-gray-400 mb-6">映像クリエイター / インフルエンサー</p>
+                        <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>ループ麒麟獅子バスのPR動画制作</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="users" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>Instagramフォロワー 1.3万人</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="bg-white dark:bg-darkCard rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group fade-in-up delay-200 border border-gray-100 dark:border-gray-800">
+                    <div class="h-2 w-full bg-brandRed"></div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-2xl font-bold text-gray-900 dark:text-white">小野 響大 <span class="text-sm text-gray-400 block font-normal mt-1">Kyouta Ono</span></h4>
+                            <i data-lucide="camera" class="text-gray-300 dark:text-gray-600 w-8 h-8 group-hover:text-brandRed transition-colors"></i>
+                        </div>
+                        <div class="mb-6 h-6"></div> <!-- Spacer to match layout -->
+                        <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>まちづくり推進隊 詫間 専属カメラマン</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>さぬき国際映画祭 出展作品 助監督</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="bg-white dark:bg-darkCard rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group fade-in-up border border-gray-100 dark:border-gray-800">
+                    <div class="h-2 w-full bg-brandRed"></div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-2xl font-bold text-gray-900 dark:text-white">久保 祐惺 <span class="text-sm text-gray-400 block font-normal mt-1">Yusei Kubo</span></h4>
+                            <i data-lucide="lightbulb" class="text-gray-300 dark:text-gray-600 w-8 h-8 group-hover:text-brandRed transition-colors"></i>
+                        </div>
+                        <p class="text-sm font-bold text-brandRed bg-red-50 dark:bg-red-900/20 inline-block px-3 py-1 rounded-full mb-6">ONE STEP 中学生</p>
+                        
+                        <div class="mb-2 text-xs font-bold text-gray-400 uppercase tracking-wider">【実績】</div>
+                        <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>大手カメラメーカーとの機材提供に関する交渉</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>映像プロジェクトの企画提案</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Member 5 -->
+                <div class="bg-white dark:bg-darkCard rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group fade-in-up delay-100 border border-gray-100 dark:border-gray-800">
+                    <div class="h-2 w-full bg-brandRed"></div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-2xl font-bold text-gray-900 dark:text-white">山口 育夢 <span class="text-sm text-gray-400 block font-normal mt-1">Ikumu Yamaguchi</span></h4>
+                            <i data-lucide="award" class="text-gray-300 dark:text-gray-600 w-8 h-8 group-hover:text-brandRed transition-colors"></i>
+                        </div>
+                        <p class="text-sm font-bold text-brandRed bg-red-50 dark:bg-red-900/20 inline-block px-3 py-1 rounded-full mb-6">ONE STEP NEXT</p>
+                        
+                        <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>YouTube甲子園 2年連続入賞</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>ほくえいフォトコンテスト 審査員特別賞</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>STAS TA Tokyo Meetup 登壇</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-brandRed flex-shrink-0"></i>
+                                <span>北栄町 観光ポスター制作</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Contact Section -->
+    <section id="contact" class="py-24 md:py-32 bg-lightBg dark:bg-darkBg relative">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-sm font-bold tracking-widest text-brandRed uppercase mb-2">Contact</h2>
+                <h3 class="text-3xl md:text-4xl font-bold mb-6">お問い合わせ</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    制作のご依頼、見積もり、その他ご相談はお気軽にどうぞ。
+                </p>
+                <div class="w-12 h-1 bg-brandRed mx-auto mt-6"></div>
+            </div>
+
+            <div class="bg-white dark:bg-darkCard rounded-2xl shadow-lg p-8 md:p-12 fade-in-up border border-gray-100 dark:border-gray-800">
+                <form class="space-y-6" onsubmit="event.preventDefault(); alert('デモ用のフォームです。実際の送信は行われません。');">
+                    <div class="grid grid-cols-1 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">お名前</label>
+                            <input type="text" id="name" placeholder="山田 太郎" class="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-brandRed focus:border-transparent transition-shadow text-gray-900 dark:text-white" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">メールアドレス</label>
+                            <input type="email" id="email" placeholder="example@onestep.com" class="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-brandRed focus:border-transparent transition-shadow text-gray-900 dark:text-white" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">お問い合わせ内容</label>
+                            <textarea id="message" rows="5" placeholder="ご依頼内容やご相談などをご記入ください。" class="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-brandRed focus:border-transparent transition-shadow text-gray-900 dark:text-white resize-none" required></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center pt-4">
+                        <button type="submit" class="inline-flex items-center justify-center px-8 py-4 bg-brandRed text-white font-bold rounded-lg hover:bg-red-700 transition-colors duration-300 w-full sm:w-auto shadow-lg shadow-brandRed/30">
+                            <span>メッセージを送信する</span>
+                            <i data-lucide="send" class="w-5 h-5 ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-center">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">SNSでも最新情報を発信しています</p>
+                    <a href="https://www.instagram.com/onestep.film?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-gray-900 dark:text-white hover:text-brandRed dark:hover:text-brandRed transition-colors group">
+                        <div class="p-3 bg-gray-100 dark:bg-black rounded-full group-hover:bg-brandRed group-hover:text-white transition-colors">
+                            <i data-lucide="instagram" class="w-6 h-6"></i>
+                        </div>
+                        <span class="font-bold text-lg">@onestep.film</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-black tracking-tighter mb-4">ONESTEP<span class="text-brandRed">FILM</span></h2>
+            <p class="text-gray-500 text-sm mb-8">若者の視点で、今しかできない映像/写真を。</p>
+            <p class="text-gray-600 text-xs">
+                &copy; <span id="year"></span> ONESTEP FILM PRODUCTION. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            // Current Year for Footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // --- Theme Toggle Logic ---
+            const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
+            const themeIcons = document.querySelectorAll('.theme-icon');
+            const htmlElement = document.documentElement;
+
+            // Check system preference or localStorage
+            function setTheme(isDark) {
+                if (isDark) {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                    themeIcons.forEach(icon => icon.setAttribute('data-lucide', 'sun'));
+                } else {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                    themeIcons.forEach(icon => icon.setAttribute('data-lucide', 'moon'));
+                }
+                lucide.createIcons();
+            }
+
+            // Initial setup
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setTheme(true);
+            } else {
+                setTheme(false);
+            }
+
+            // Toggle event
+            themeToggleBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const isDark = !htmlElement.classList.contains('dark');
+                    setTheme(isDark);
+                });
+            });
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Intersection Observer for Scroll Animations ---
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optional: Stop observing once visible if you only want it to animate once
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
